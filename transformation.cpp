@@ -54,30 +54,33 @@ void transformation::transformWords(string sourceWord, string destinationWord, s
         int count = 0;      //set counter = 0
         int size = currentWord.length();    //size = word length
 
-        set<string>::iterator it;
-        for(it = wordlist.begin(); it != wordlist.end(); ++it)      //itertate through dictionary
-        {
-          temp = *it;       //assign temp to current word
-          if(temp.length() == currentWord.length())       //if the words match
-          {
-            for (int i = 0; i < size; i++)      //run for size
-            {
-              if(currentWord[i] != temp[i])       //incrament counter if the letters dont match
-              {
-                count++;
-              }
-             }
-            if(count == (size -1))    //if count is == to 1 then push word into q and visited nodes set
-            {
-              if(!visitedNodes.count(temp))
-              {
-                q.push(temp);
-              }
-            }
-          }
-          visitedNodes.insert(temp);
-          int count = 0;
-        }
+	string test;
+			  for (int i = 0; i < size; i++) {
+			    for (char j = 'a'; j <= 'z'; j++) {
+			    test = temp.substr(0, i) + j + temp.substr(i + 1);
+		            
+			    // if that word is an english word
+			    if (wordList.count(test)) {
+			      
+			      // if that neighbor word has not already been used in a ladder before:
+			      if (!testedWords.count(test)) {
+				
+						// create a copy of the current ladder stack.
+						stack<string> copy = ladder;
+				                
+						// put the neighbor word on top of the copy stack.
+						copy.push(test);
+				                
+						// add the copy stack to the end of the queue.
+						q.push(copy);
+			      }
+			    }
+		            
+			    // Add test to tested words because it is already used.
+			    testedWords.insert(test);
+		}
+	   }   
+		
       }
     }
 }
