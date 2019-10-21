@@ -62,7 +62,7 @@ void transformation::transformWords(string sourceWord, string destinationWord, s
           {
             for (int i = 0; i < size; i++)      //run for size
             {
-              if(currentWord[i] == temp[i])       //incrament counter if the letters dont match
+              if(currentWord[i] != temp[i])       //incrament counter if the letters dont match
               {
                 count++;
               }
